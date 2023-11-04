@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
 
 export class Counter extends Component {
-  static displayName = Counter.name;
+    static DisplayName = "Question Test"
+    state = {
+        question: '',
+    };
 
-  constructor(props) {
-    super(props);
-    this.state = { currentCount: 0 };
-    this.incrementCounter = this.incrementCounter.bind(this);
-  }
+    async componentDidMount() {
+        try {
+            const response = await fetch('https://opentdb.com/api.php?amount=1&category=21');
 
-  incrementCounter() {
-    this.setState({
-      currentCount: this.state.currentCount + 1
-    });
-  }
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
 
-  render() {
-    return (
-      <div>
-        <h1>Counter</h1>
+            const data = await response.json();
+            const firstQuestion = data.results[0].question;
+            this.setState({ question: firstQuestion });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
 
-        <p>This is a simple example of a React component.</p>
+    render() {
+        const { question } = this.state;
 
-        <p aria-live="polite">Current count: <strong>{this.state.currentCount}</strong></p>
+        if (!question) {
+            return <div>Loading...</div>;
+        }
 
-        <button className="btn btn-primary" onClick={this.incrementCounter}>Increment</button>
-      </div>
-    );
-  }
+        return (
+            <div>
+                <h1>Question</h1>
+                <p>{question}</p>
+            </div>
+        );
+    }
 }

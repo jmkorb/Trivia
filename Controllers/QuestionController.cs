@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Library;
+using Library.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Trivia.Controllers
@@ -16,14 +18,12 @@ namespace Trivia.Controllers
             _questionService = questionService;
         }
 
-        // GET: api/values
         [HttpGet]
-        [Route("v1/question/category/{category}")]
-        public async Task<IHttpActionResult> GetQuestions(string category)
+        public async Task<QuestionModel> GetQuestions(string categoryNumber)
         {
-            var result = await _questionService.GetQuestionBasedOnCategory(category);
+            var result = await _questionService.GetQuestionBasedOnCategory(categoryNumber);
 
-            return Ok(result);
+            return result;
         }
     }
 }
