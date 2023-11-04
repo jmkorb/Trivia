@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Library;
+using Library.Enums;
 using Library.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Trivia.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
-    public class QuestionController : Controller
+    public class QuestionController : ControllerBase
     {
         private readonly IQuestionService _questionService;
 
@@ -19,11 +21,26 @@ namespace Trivia.Controllers
         }
 
         [HttpGet]
-        public async Task<QuestionModel> GetQuestions(string categoryNumber)
+        public async Task<IActionResult> GetQuestion()
         {
-            var result = await _questionService.GetQuestionBasedOnCategory(categoryNumber);
+            try
+            {
+                var category = Category.Sports;
+                var questionModel = await _questionService.GetQuestionUsingCategory(category);
 
-            return result;
+                if (questionModel != null)
+                {
+                    return Ok(questionModel.Results);
+                }
+                else
+                {
+                    return NotFound(); // Or return a suitable error response
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

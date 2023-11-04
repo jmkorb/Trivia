@@ -5,8 +5,10 @@ namespace Library.TriviaDB
 {
 	public class GetQuestion : IGetQuestion
 	{
+        private readonly HttpClient _httpClient;
         public async Task<QuestionModel> GetQuestionBasedOnCriteria(string criteria)
         {
+            
             using (var client = new HttpClient())
             {
                 var url = new Uri($"https://opentdb.com/api.php?amount=1&category={criteria}");
