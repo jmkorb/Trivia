@@ -1,37 +1,47 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component } from 'react';
 
-function Question() {
+export class Question extends Component {
+  static displayName = Question.name;
 
-    function App() {
-        const [question, setQuestion] = useState('');
-      
-        useEffect(() => {
-          // Define the API URL (change this to match your actual API endpoint)
-          const apiUrl = '/api/Question';
-      
-          // Make an HTTP GET request to the API
-          fetch(apiUrl)
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-              }
-              return response.json();
-            })
-            .then((data) => {
-              setQuestion(data.question);
-            })
-            .catch((error) => {
-              console.error('Error fetching data:', error);
-            });
-        }, []);
-      
-        return (
-          <div>
-            <h1>Question</h1>
-            <p>{question}</p>
-          </div>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = { question: "", loading: true };
+  }
+
+  componentDidMount() {
+    this.populateQuestion();
+  }
+
+  static renderQuestion(question) {
+    return (
+      <div>
+        <h1>Question</h1>
+        <p>{question}</p>
+      </div>
+    );
+  }
+
+  render() {
+    let displayQuestion = this.state.loading
+      ? <p><em>Loading...</em></p>
+      : Question.renderQuestion(this.state.question);
+
+    console.log(displayQuestion);
+    return (
+      <div>
+        <h1 id="tabelLabel" >Trivia Time!</h1>
+        <p>Do you know the answer?</p>
+        {displayQuestion}
+      </div>
+    );
+  };
+
+  async populateQuestion() {
+    const response = await fetch("api/question");
+    const data = await response.json();
+    this.setState({ question: data.results[0].question, loading: false });
+  }
 }
+
 
 export default Question;

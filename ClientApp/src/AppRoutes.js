@@ -1,4 +1,4 @@
-import { Question } from "./components/Question";
+import Question from "./components/Question";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 

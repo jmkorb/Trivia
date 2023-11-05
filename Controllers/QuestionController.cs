@@ -1,46 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Library;
-using Library.Enums;
+﻿using Library.Enums;
 using Library.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Trivia.Controllers
+namespace Trivia.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class QuestionController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class QuestionController : ControllerBase
+    public IQuestionService _questionService;
+
+    public QuestionController(IQuestionService questionService)
     {
-        private readonly IQuestionService _questionService;
+        _questionService = questionService;
+    }
 
-        public QuestionController(IQuestionService questionService)
+
+    [HttpGet]
+    public async Task<IActionResult> Get()
+    {
+        try
         {
-            _questionService = questionService;
+            var category = Category.Sports;
+            var questionModel = await _questionService.GetQuestionUsingCategory(category);
+
+            if (questionModel != null)
+            {
+                return Ok(questionModel);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetQuestion()
+        catch (Exception ex)
         {
-            try
-            {
-                var category = Category.Sports;
-                var questionModel = await _questionService.GetQuestionUsingCategory(category);
-
-                if (questionModel != null)
-                {
-                    return Ok(questionModel.Results);
-                }
-                else
-                {
-                    return NotFound(); // Or return a suitable error response
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            return StatusCode(500, ex.Message);
         }
     }
 }
+

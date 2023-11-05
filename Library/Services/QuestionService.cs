@@ -1,6 +1,4 @@
-﻿using System;
-using Library.Enums;
-using Library.TriviaDB;
+﻿using Library.Enums;
 using Newtonsoft.Json;
 
 namespace Library.Services
@@ -9,18 +7,18 @@ namespace Library.Services
 	{
         private readonly HttpClient _httpClient;
 
-		private readonly string baseURL = "https://opentdb.com/api.php?";
-
 		public QuestionService(HttpClient httpClient)
 		{
 			_httpClient = httpClient;
 		}
         public async Task<QuestionModel> GetQuestionUsingCategory(Category category)
         {
+			var baseUrl = "https://opentdb.com/api.php?";
 			try
 			{
+				var url = $"{baseUrl}amount=1&category={(int)category}";
 				// Make an HTTP request to the Open Trivia Database API
-				var response = await _httpClient.GetAsync($"{baseURL}amount=1&category={category}");
+				var response = await _httpClient.GetAsync(url);
 
 				if (!response.IsSuccessStatusCode)
 				{

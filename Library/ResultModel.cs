@@ -6,7 +6,7 @@ using System.Xml.Linq;
 namespace Library
 {
     [DataContract]
-    public class Result
+    public class ResultModel
     {
         [DataMember(Name = "category")]
         public Category Category { get; set; }
