@@ -17,6 +17,8 @@ namespace Library.Services
 			try
 			{
 				var url = $"{baseUrl}amount=1&category={(int)category}";
+
+				Console.WriteLine(url);
 				// Make an HTTP request to the Open Trivia Database API
 				var response = await _httpClient.GetAsync(url);
 

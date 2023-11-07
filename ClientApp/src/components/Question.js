@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CategoryDropdown from './CategoryDropdown';
 
 export class Question extends Component {
   static displayName = Question.name;
@@ -11,6 +12,8 @@ export class Question extends Component {
   componentDidMount() {
     this.populateQuestion();
   }
+
+  
 
   static renderQuestion(questionSet) {
     return (
@@ -37,6 +40,7 @@ export class Question extends Component {
         <h1 id="tabelLabel" >Trivia Time!</h1>
         <p>Do you know the answer?</p>
         {displayQuestion}
+        <CategoryDropdown />
       </div>
     );
   };
