@@ -6,7 +6,7 @@ namespace Library.Services
 {
 	public interface IQuestionService
 	{
-		Task<QuestionModel> GetQuestionUsingCategory(Category category);
+		Task<QuestionModel> GetQuestionUsingCategory(string category);
 	}
 }
 

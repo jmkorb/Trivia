@@ -11,9 +11,7 @@ public class SelectionsController : ControllerBase
     [Route("categories")]
     public IActionResult GetCategories()
     {
-        var categories = Enum.GetValues(typeof(Category))
-            .Cast<Category>()
-            .Select(c => c.ToString())
+        var categories = Enum.GetNames(typeof(Category))
             .ToList();
 
         return Ok(categories);

@@ -4,6 +4,7 @@ import CategoryDropdown from './CategoryDropdown';
 function Question() {
   const [questionSet, setQuestionSet] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     populateQuestion();
@@ -43,7 +44,9 @@ function Question() {
         <h1 id="tabelLabel" >Trivia Time!</h1>
         <p>Do you know the answer?</p>
         {displayQuestion}
-        <CategoryDropdown />
+        <CategoryDropdown 
+          setCategory={setCategory}
+        />
       </div>
     );
 }

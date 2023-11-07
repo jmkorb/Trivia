@@ -1,4 +1,5 @@
-﻿using Library.Enums;
+﻿using System.Linq;
+using Library.Enums;
 using Newtonsoft.Json;
 
 namespace Library.Services
@@ -11,12 +12,17 @@ namespace Library.Services
 		{
 			_httpClient = httpClient;
 		}
-        public async Task<QuestionModel> GetQuestionUsingCategory(Category category)
+        public async Task<QuestionModel> GetQuestionUsingCategory(string category)
         {
 			var baseUrl = "https://opentdb.com/api.php?";
 			try
 			{
-				var url = $"{baseUrl}amount=1&category={(int)category}";
+				var selectedCategory = 0;
+
+       			if(Enum.TryParse(category, true, out Category searchCategory))
+					selectedCategory = (int)searchCategory;
+
+				var url = $"{baseUrl}amount=1&category={selectedCategory}";
 
 				var response = await _httpClient.GetAsync(url);
 
