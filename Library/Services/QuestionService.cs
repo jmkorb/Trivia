@@ -18,8 +18,6 @@ namespace Library.Services
 			{
 				var url = $"{baseUrl}amount=1&category={(int)category}";
 
-				Console.WriteLine(url);
-				// Make an HTTP request to the Open Trivia Database API
 				var response = await _httpClient.GetAsync(url);
 
 				if (!response.IsSuccessStatusCode)
@@ -27,13 +25,14 @@ namespace Library.Services
 					throw new Exception($"HTTP error! Status: {response.StatusCode}");
 				}
 
-				// Read the response content as a string
 				var content = await response.Content.ReadAsStringAsync();
 
-				// Deserialize the JSON response into a QuestionModel
 				var questionModel = JsonConvert.DeserializeObject<QuestionModel>(content);
-
-				return questionModel;
+				
+				if(questionModel == null)
+					return new QuestionModel();
+				else
+					return questionModel;
 			}
 			catch (Exception ex)
 			{
