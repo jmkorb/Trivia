@@ -1,21 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import CategoryDropdown from './CategoryDropdown';
 
-export class Question extends Component {
-  static displayName = Question.name;
+function Question() {
+  const [questionSet, setQuestionSet] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  constructor(props) {
-    super(props);
-    this.state = { questionSet: "", loading: true };
-  }
+  useEffect(() => {
+    populateQuestion();
+  }, []);
 
-  componentDidMount() {
-    this.populateQuestion();
-  }
-
-  
-
-  static renderQuestion(questionSet) {
+  const renderQuestion = (questionSet) => {
     return (
       <div>
         <h1>Question</h1>
@@ -29,13 +23,22 @@ export class Question extends Component {
     );
   }
 
-  render() {
-    let displayQuestion = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : Question.renderQuestion(this.state.questionSet);
+  const displayQuestion = loading
+    ? <p><em>Loading...</em></p>
+    : renderQuestion(questionSet);
 
-    console.log(displayQuestion);
-    return (
+  const populateQuestion = async () => {
+    try {
+      const response = await fetch("api/question");
+      const data = await response.json();
+      setQuestionSet(data.results[0]);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching question:", error);
+    }
+  };
+
+  return (
       <div>
         <h1 id="tabelLabel" >Trivia Time!</h1>
         <p>Do you know the answer?</p>
@@ -43,13 +46,6 @@ export class Question extends Component {
         <CategoryDropdown />
       </div>
     );
-  };
-
-  async populateQuestion() {
-    const response = await fetch("api/question");
-    const data = await response.json();
-    this.setState({ questionSet: data.results[0], loading: false });
-  }
 }
 
 
