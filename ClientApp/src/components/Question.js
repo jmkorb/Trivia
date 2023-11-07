@@ -5,18 +5,23 @@ export class Question extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { question: "", loading: true };
+    this.state = { questionSet: "", loading: true };
   }
 
   componentDidMount() {
     this.populateQuestion();
   }
 
-  static renderQuestion(question) {
+  static renderQuestion(questionSet) {
     return (
       <div>
         <h1>Question</h1>
-        <p>{question}</p>
+        <p>{questionSet.question}</p>
+        <h2>Answer</h2>
+        <p><b>{questionSet.correctAnswer}</b></p>
+        <p>{questionSet.incorrectAnswers[0]}</p>
+        <p>{questionSet.incorrectAnswers[1]}</p>
+        <p>{questionSet.incorrectAnswers[2]}</p>
       </div>
     );
   }
@@ -24,7 +29,7 @@ export class Question extends Component {
   render() {
     let displayQuestion = this.state.loading
       ? <p><em>Loading...</em></p>
-      : Question.renderQuestion(this.state.question);
+      : Question.renderQuestion(this.state.questionSet);
 
     console.log(displayQuestion);
     return (
@@ -39,7 +44,7 @@ export class Question extends Component {
   async populateQuestion() {
     const response = await fetch("api/question");
     const data = await response.json();
-    this.setState({ question: data.results[0].question, loading: false });
+    this.setState({ questionSet: data.results[0], loading: false });
   }
 }
 
