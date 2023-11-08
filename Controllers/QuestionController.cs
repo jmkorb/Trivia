@@ -17,11 +17,10 @@ public class QuestionController : ControllerBase
 
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get(string category)
     {
         try
         {
-            var category = Category.Sports;
             var questionModel = await _questionService.GetQuestionUsingCategory(category);
 
             if (questionModel != null)
