@@ -6,6 +6,9 @@ function Question() {
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("0");
 
+  const checkGuess = (answer) => {
+  }
+
   useEffect(() => {
     populateQuestion();
   }, []);
@@ -31,7 +34,7 @@ function Question() {
         <h2>Answer</h2>
         {shuffledAnswers.map((answer, index) => 
           (<p key={index}>{answer}</p>)
-        )};
+        )}
       </div>
     );
   };
@@ -60,8 +63,7 @@ function Question() {
   return (
       <div>
         <h1 id="tabelLabel" >Trivia Time!</h1>
-        <button onClick = {handleButtonClick}>Press Me</button>
-        <p>Do you know the answer?</p>
+        <button onClick = {handleButtonClick}>New Question</button>
         {displayQuestion}
         <CategoryDropdown 
           setCategory={setCategory}

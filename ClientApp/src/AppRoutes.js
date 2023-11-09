@@ -1,14 +1,9 @@
-import Question from "./components/Question";
-import { FetchData } from "./components/FetchData";
+import Home from "./components/Home";
 
 const AppRoutes = [
   {
     index: true,
-    element: <Question />
-  },
-  {
-    path: '/fetch-data',
-    element: <FetchData />
+    element: <Home />
   }
 ];
 
