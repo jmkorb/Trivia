@@ -37,16 +37,18 @@ function Question() {
       <div>
         <h1>Question</h1>
         <p>{questionSet.question}</p>
-        <h2>Answer</h2>
-        {shuffledAnswers.map((answer, index) => 
-          (<button 
-            key={index} 
-            type="button"
-            className={`btn ${selectedAnswer === answer ? (answer === questionSet.correctAnswer ? 'btn-success' : 'btn-danger') : 'btn-primary'}`}
-            onClick={() => handleAnswerClick(answer)}
-            >
-            {answer}
-          </button>))}
+        <div class="row row-cols-2">
+            {shuffledAnswers.map((answer, index) => 
+              (<div key={index}>
+                <button 
+                  type="button"
+                  className={`btn ${selectedAnswer === answer ? (answer === questionSet.correctAnswer ? 'btn-success' : 'btn-danger') : 'btn-primary'}`}
+                  onClick={() => handleAnswerClick(answer)}
+                  >
+                  {answer}
+                </button>
+              </div>))}
+        </div>
       </div>
     );
   };
@@ -72,9 +74,10 @@ function Question() {
   const handleButtonClick = () => {
     populateQuestion();
   };
+  
 
   return (
-      <div>
+      <div class="container text-center">
         <h1 id="topHeader" >Trivia Time! Let's see how well you know {category.toLowerCase()}.</h1>
         <button class="btn btn-secondary btn-lg" type="button" value="Input" onClick = {handleButtonClick}>New Question</button>
         {displayQuestion}
