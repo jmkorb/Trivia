@@ -1,5 +1,4 @@
-﻿/* Provide sufficient contrast against white background */
-a {
+﻿a {
   color: #0366d6;
 }
 
@@ -7,16 +6,12 @@ code {
   color: #E01A76;
 }
 
+#topHeader {
+  align-items: center;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
-}
-
-.correct{
-  background-color: green;
-}
-
-.incorrect {
-  background-color: red;
 }

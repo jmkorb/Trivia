@@ -1,9 +1,9 @@
 import Question from './Question';
 
 function Home() {
-  return (
-    <Question />
-  );
+    return (
+      <Question />
+    );
 }
 
 export default Home;

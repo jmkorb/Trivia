@@ -21,7 +21,7 @@ namespace Library.Services
 				if (result.Type != QuestionType.TrueOrFalse && result.IncorrectAnswers != null)
 				{
 					result.CorrectAnswer = WebUtility.HtmlDecode(result.CorrectAnswer);
-					var decodedIncorrectAnswers = result.IncorrectAnswers.Select(WebUtility.HtmlDecode).ToList();
+					result.IncorrectAnswers = result.IncorrectAnswers.Select(WebUtility.HtmlDecode);
 				}
 			}
 		}
@@ -46,9 +46,7 @@ namespace Library.Services
 				}
 
 				var content = await response.Content.ReadAsStringAsync();
-
 				var questionModel = JsonConvert.DeserializeObject<QuestionModel>(content);
-
 				if(questionModel == null)
 					return new QuestionModel();
 				else

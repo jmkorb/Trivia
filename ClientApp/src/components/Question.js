@@ -41,9 +41,10 @@ function Question() {
         {shuffledAnswers.map((answer, index) => 
           (<button 
             key={index} 
-            className= {selectedAnswer === answer ? 
-              (answer === questionSet.correctAnswer ? 'correct' : 'incorrect') : ''} 
-            onClick={() => handleAnswerClick(answer)}>
+            type="button"
+            className={`btn ${selectedAnswer === answer ? (answer === questionSet.correctAnswer ? 'btn-success' : 'btn-danger') : 'btn-primary'}`}
+            onClick={() => handleAnswerClick(answer)}
+            >
             {answer}
           </button>))}
       </div>
@@ -74,8 +75,8 @@ function Question() {
 
   return (
       <div>
-        <h1 id="tabelLabel" >Trivia Time! Let's see how well you know {category.toLowerCase()}.</h1>
-        <button onClick = {handleButtonClick}>New Question</button>
+        <h1 id="topHeader" >Trivia Time! Let's see how well you know {category.toLowerCase()}.</h1>
+        <button class="btn btn-secondary btn-lg" type="button" value="Input" onClick = {handleButtonClick}>New Question</button>
         {displayQuestion}
         <CategoryDropdown 
           setCategory={setCategory}

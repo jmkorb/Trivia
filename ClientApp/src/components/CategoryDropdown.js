@@ -22,8 +22,8 @@ function CategoryDropdown( { setCategory } ) {
 
   return (
     <div>
-      <label>Select a category:</label>
-      <select onChange={handleDropdownChange}>
+      <label>Select an category:</label>
+      <select class="form-select" aria-label="Default select example" onChange={handleDropdownChange}>
         {console.log(categoryList[0])}
         {categoryList.map((item) => (
           <option key={item} value={item}>
