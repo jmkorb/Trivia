@@ -22,7 +22,7 @@ function CategoryDropdown( { setCategory } ) {
 
   return (
     <div>
-      <label>Select an category:</label>
+      <label>Select a category:</label>
       <select onChange={handleDropdownChange}>
         {console.log(categoryList[0])}
         {categoryList.map((item) => (

@@ -74,8 +74,8 @@ function Question() {
 
   return (
       <div>
-        <h1 id="tabelLabel" >Trivia Time! Let's see how well you know {category.toLowerCase()}</h1>
-        <button onClick = {() => handleButtonClick}>New Question</button>
+        <h1 id="tabelLabel" >Trivia Time! Let's see how well you know {category.toLowerCase()}.</h1>
+        <button onClick = {handleButtonClick}>New Question</button>
         {displayQuestion}
         <CategoryDropdown 
           setCategory={setCategory}

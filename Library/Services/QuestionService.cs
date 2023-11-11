@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using System.Net;
 using Library.Enums;
 using Newtonsoft.Json;
 
@@ -12,6 +12,20 @@ namespace Library.Services
 		{
 			_httpClient = httpClient;
 		}
+
+		private static void DecodeQuestionResults(QuestionModel questionModel){
+			foreach (var result in questionModel.Results)
+			{
+				result.Question = WebUtility.HtmlDecode(result.Question);
+
+				if (result.Type != QuestionType.TrueOrFalse && result.IncorrectAnswers != null)
+				{
+					result.CorrectAnswer = WebUtility.HtmlDecode(result.CorrectAnswer);
+					var decodedIncorrectAnswers = result.IncorrectAnswers.Select(WebUtility.HtmlDecode).ToList();
+				}
+			}
+		}
+
         public async Task<QuestionModel> GetQuestionUsingCategory(string category)
         {
 			var baseUrl = "https://opentdb.com/api.php?";
@@ -34,10 +48,11 @@ namespace Library.Services
 				var content = await response.Content.ReadAsStringAsync();
 
 				var questionModel = JsonConvert.DeserializeObject<QuestionModel>(content);
-				
+
 				if(questionModel == null)
 					return new QuestionModel();
 				else
+					DecodeQuestionResults(questionModel);
 					return questionModel;
 			}
 			catch (Exception ex)
