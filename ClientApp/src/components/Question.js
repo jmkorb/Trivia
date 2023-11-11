@@ -3,13 +3,21 @@ import CategoryDropdown from './CategoryDropdown';
 
 function Question() {
   const [questionSet, setQuestionSet] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [category, setCategory] = useState("0");
+  const [shuffledAnswers, setShuffledAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [category, setCategory] = useState("GeneralKnowledge");
 
   useEffect(() => {
     populateQuestion();
   }, [category]);
+
+  useEffect(() => {
+    if (questionSet) {
+      const allAnswers = [questionSet.correctAnswer, ...questionSet.incorrectAnswers];
+      setShuffledAnswers(shuffleAnswers(allAnswers));
+    }
+  }, [questionSet]);
 
   const shuffleAnswers = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -18,22 +26,26 @@ function Question() {
     }
     return array;
   };
+
+  const handleAnswerClick = (answer) => {
+    setSelectedAnswer(answer);
+  };
   
   const renderQuestion = (questionSet) => {
-    const allAnswers = [questionSet.correctAnswer, ...questionSet.incorrectAnswers];
-    const shuffledAnswers = shuffleAnswers(allAnswers);
-
-  
     //TODO: need to not shuffle if true or false
-    console.log(questionSet.correctAnswer);
     return (
       <div>
         <h1>Question</h1>
         <p>{questionSet.question}</p>
         <h2>Answer</h2>
         {shuffledAnswers.map((answer, index) => 
-          (<button key={index}>{answer}</button>)
-        )}
+          (<button 
+            key={index} 
+            className= {selectedAnswer === answer ? 
+              (answer === questionSet.correctAnswer ? 'correct' : 'incorrect') : ''} 
+            onClick={() => handleAnswerClick(answer)}>
+            {answer}
+          </button>))}
       </div>
     );
   };
@@ -48,6 +60,7 @@ function Question() {
       const response = await fetch("api/question?category=" + category);
       const data = await response.json();
        setQuestionSet(data.results[0]);
+       setSelectedAnswer(null);
     } catch (error) {
       console.error("Error fetching question:", error);
     } finally {
@@ -62,7 +75,7 @@ function Question() {
   return (
       <div>
         <h1 id="tabelLabel" >Trivia Time! Let's see how well you know {category.toLowerCase()}</h1>
-        <button onClick = {handleButtonClick}>New Question</button>
+        <button onClick = {() => handleButtonClick}>New Question</button>
         {displayQuestion}
         <CategoryDropdown 
           setCategory={setCategory}

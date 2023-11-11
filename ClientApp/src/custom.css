@@ -13,3 +13,10 @@ code {
   border-color: #1861ac;
 }
 
+.correct{
+  background-color: green;
+}
+
+.incorrect {
+  background-color: red;
+}
