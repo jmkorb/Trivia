@@ -5,13 +5,11 @@ function Question() {
   const [questionSet, setQuestionSet] = useState(null);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("0");
-
-  const checkGuess = (answer) => {
-  }
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   useEffect(() => {
     populateQuestion();
-  }, []);
+  }, [category]);
 
   const shuffleAnswers = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -23,9 +21,10 @@ function Question() {
   
   const renderQuestion = (questionSet) => {
     const allAnswers = [questionSet.correctAnswer, ...questionSet.incorrectAnswers];
-  
-    //need to not shuffle if true or false
     const shuffledAnswers = shuffleAnswers(allAnswers);
+
+  
+    //TODO: need to not shuffle if true or false
     console.log(questionSet.correctAnswer);
     return (
       <div>
@@ -33,7 +32,7 @@ function Question() {
         <p>{questionSet.question}</p>
         <h2>Answer</h2>
         {shuffledAnswers.map((answer, index) => 
-          (<p key={index}>{answer}</p>)
+          (<button key={index}>{answer}</button>)
         )}
       </div>
     );
@@ -62,7 +61,7 @@ function Question() {
 
   return (
       <div>
-        <h1 id="tabelLabel" >Trivia Time!</h1>
+        <h1 id="tabelLabel" >Trivia Time! Let's see how well you know {category.toLowerCase()}</h1>
         <button onClick = {handleButtonClick}>New Question</button>
         {displayQuestion}
         <CategoryDropdown 

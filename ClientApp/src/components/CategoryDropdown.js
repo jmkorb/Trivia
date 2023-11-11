@@ -24,7 +24,7 @@ function CategoryDropdown( { setCategory } ) {
     <div>
       <label>Select an category:</label>
       <select onChange={handleDropdownChange}>
-        <option value="">Select a category</option>
+        {console.log(categoryList[0])}
         {categoryList.map((item) => (
           <option key={item} value={item}>
             {item}
