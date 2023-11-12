@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 function CategoryDropdown( { setCategory } ) {
   const [categoryList, setCategoryList] = useState([]);
-  const [selectedValue, setSelectedValue] = useState("");
 
   useEffect(() => {
     fetch('api/selections/categories')
@@ -23,8 +22,7 @@ function CategoryDropdown( { setCategory } ) {
   return (
     <div>
       <label>Select an category:</label>
-      <select class="form-select" aria-label="Default select example" onChange={handleDropdownChange}>
-        {console.log(categoryList[0])}
+      <select className="form-select" aria-label="Default select example" onChange={handleDropdownChange}>
         {categoryList.map((item) => (
           <option key={item} value={item}>
             {item}

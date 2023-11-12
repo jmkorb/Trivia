@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import CategoryDropdown from './CategoryDropdown';
 
 function Question() {
-  const [questionSet, setQuestionSet] = useState(null);
-  const [shuffledAnswers, setShuffledAnswers] = useState([]);
+  const [questionData, setQuestionSet] = useState(null);
+  const [answers, setAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("GeneralKnowledge");
@@ -13,11 +13,15 @@ function Question() {
   }, [category]);
 
   useEffect(() => {
-    if (questionSet) {
-      const allAnswers = [questionSet.correctAnswer, ...questionSet.incorrectAnswers];
-      setShuffledAnswers(shuffleAnswers(allAnswers));
+    let allAnswers = [];
+    if (questionData && questionData.type !== 2) {
+      allAnswers = [questionData.correctAnswer, ...questionData.incorrectAnswers];
+      setAnswers(shuffleAnswers(allAnswers));
     }
-  }, [questionSet]);
+    else{
+      setAnswers(["True", "False"])
+    }
+  }, [questionData]);
 
   const shuffleAnswers = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -27,35 +31,58 @@ function Question() {
     return array;
   };
 
+  const sectionArrays = (array, size) => {
+    const sectionedArray = [];
+    for (let i = 0; i < array.length; i += size) {
+      sectionedArray.push(array.slice(i, i + size));
+    }
+    return sectionedArray;
+  };
+
   const handleAnswerClick = (answer) => {
     setSelectedAnswer(answer);
   };
   
-  const renderQuestion = (questionSet) => {
-    //TODO: need to not shuffle if true or false
+  const questionDisplay = (questionData) => {
     return (
       <div>
-        <h1>Question</h1>
-        <p>{questionSet.question}</p>
-        <div class="row row-cols-2">
-            {shuffledAnswers.map((answer, index) => 
-              (<div key={index}>
-                <button 
-                  type="button"
-                  className={`btn ${selectedAnswer === answer ? (answer === questionSet.correctAnswer ? 'btn-success' : 'btn-danger') : 'btn-primary'}`}
-                  onClick={() => handleAnswerClick(answer)}
-                  >
-                  {answer}
-                </button>
-              </div>))}
-        </div>
+          <h1>Question</h1>
+          <p>{questionData.question}</p>
+      </div>
+    );
+  }
+  
+  const answerDisplay = (questionData) => {
+    // TODO: need to not shuffle if true or false
+    const answerPairs = sectionArrays(answers, 2);
+  
+    return (
+      <div>
+        {answerPairs.map((row, rowIndex) => (
+          <div key={rowIndex} className="row row-cols-2 justify-content-evenly " id="answerRow">
+            {row.map((answer, index) => (
+              <button
+                key={index}
+                type="button"
+                className={`btn col-5 ${selectedAnswer === answer ? (answer === questionData.correctAnswer ? 'btn-success' : 'btn-danger') : 'btn-primary'}`}
+                onClick={() => handleAnswerClick(answer)}
+              >
+                {answer}
+              </button>
+            ))}
+          </div>
+        ))}
       </div>
     );
   };
   
   const displayQuestion = loading
     ? <p><em>Loading...</em></p>
-    : renderQuestion(questionSet);
+    : questionDisplay(questionData);  
+    
+  const displayAnswers = loading
+    ? <p></p>
+    : answerDisplay(questionData);
 
   const populateQuestion = async () => {
     setLoading(true);
@@ -77,10 +104,11 @@ function Question() {
   
 
   return (
-      <div class="container text-center">
+      <div className="container-fluid text-center">
         <h1 id="topHeader" >Trivia Time! Let's see how well you know {category.toLowerCase()}.</h1>
-        <button class="btn btn-secondary btn-lg" type="button" value="Input" onClick = {handleButtonClick}>New Question</button>
+        <button className="btn btn-secondary btn-lg" type="button" value="Input" onClick = {handleButtonClick}>New Question</button>
         {displayQuestion}
+        {displayAnswers}
         <CategoryDropdown 
           setCategory={setCategory}
         />
