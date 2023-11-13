@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace Library.Enums
@@ -6,6 +7,7 @@ namespace Library.Enums
     public enum Category
     {
         [EnumMember(Value = "General Knowledge")]
+        [Display(Name="General Knowledge")]
         GeneralKnowledge = 9,
         [EnumMember(Value = "Entertainment: Books")]
         Books = 10,
@@ -14,14 +16,18 @@ namespace Library.Enums
         [EnumMember(Value = "Entertainment: Music")]
         Music = 12,
         [EnumMember(Value = "Entertainment: Musicals & Theatres")]
+        [Display(Name="Musicals and Theater")]
         MusicalsAndTheater = 13,
         [EnumMember(Value = "Entertainment: Television")]
         Television = 14,
         [EnumMember(Value = "Entertainment: Video Games")]
+        [Display(Name="Video Games")]
         VideoGames = 15,
         [EnumMember(Value = "Entertainment: Board Games")]
+        [Display(Name="Board Games")]
         BoardGames = 16,
         [EnumMember(Value = "Science & Nature")]
+        [Display(Name="Science and Nature")]
         ScienceAndNature = 17,
         [EnumMember(Value = "Science: Computers")]
         Computers = 18,
@@ -50,7 +56,8 @@ namespace Library.Enums
         [EnumMember(Value = "Science: Gadgets")]
         Gadgets = 30,
         [EnumMember(Value = "Entertainment: Japanese Anime & Manga")]
-        JapaneseAnimeAndManga = 31,
+        [Display(Name="Anime and Manga")]
+        AnimeAndManga = 31,
         [EnumMember(Value = "Entertainment: Cartoon & Animations")]
         Cartoons = 32
 

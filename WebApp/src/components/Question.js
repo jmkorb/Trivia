@@ -6,7 +6,7 @@ function Question() {
   const [answers, setAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [category, setCategory] = useState("GeneralKnowledge");
+  const [category, setCategory] = useState("General Knowledge");
 
   useEffect(() => {
     populateQuestion();
@@ -46,14 +46,12 @@ function Question() {
   const questionDisplay = (questionData) => {
     return (
       <div>
-          <h1>Question</h1>
           <p>{questionData.question}</p>
       </div>
     );
   }
   
-  const answerDisplay = (questionData) => {
-    // TODO: need to not shuffle if true or false
+  const answerDisplay = (questionData) => {    
     const answerPairs = sectionArrays(answers, 2);
   
     return (
@@ -64,7 +62,7 @@ function Question() {
               <button
                 key={index}
                 type="button"
-                className={`btn col-5 ${selectedAnswer === answer ? (answer === questionData.correctAnswer ? 'btn-success' : 'btn-danger') : 'btn-primary'}`}
+                className={`btn col-4 ${selectedAnswer === answer ? (answer === questionData.correctAnswer ? 'btn-success' : 'btn-danger') : 'btn-primary'}`}
                 onClick={() => handleAnswerClick(answer)}
               >
                 {answer}
@@ -101,17 +99,29 @@ function Question() {
   const handleButtonClick = () => {
     populateQuestion();
   };
+
+  const newQuestionButton = 
+    <button id="new-question" 
+      className="btn btn-secondary btn-lg col-4" 
+      type="button" 
+      value="Input" 
+      onClick={handleButtonClick}>
+        New Question
+    </button>;
+  
   
 
   return (
       <div className="container-fluid text-center">
-        <h1 id="topHeader" >Trivia Time! Let's see how well you know {category.toLowerCase()}.</h1>
-        <button className="btn btn-secondary btn-lg" type="button" value="Input" onClick = {handleButtonClick}>New Question</button>
+        <h1 id="topHeader" >Trivia Time!</h1>
+        <p>Let's see how well you know your {category.toLowerCase()}.</p>
+        <h1>Question</h1>
         {displayQuestion}
         {displayAnswers}
         <CategoryDropdown 
           setCategory={setCategory}
         />
+        {newQuestionButton}
       </div>
     );
 }

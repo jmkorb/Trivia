@@ -1,0 +1,48 @@
+﻿a {
+  color: #0366d6;
+}
+
+code {
+  color: #E01A76;
+}
+
+header {
+  background-color: #7d41b7;
+}
+
+.navbar-brand {
+  color: #fff;
+  text-shadow: 2px black;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1f9a9c;
+  border-color: #41b5b7;
+}
+
+.btn-success{
+  background-color: #25b125;
+  border-color: #25b125;
+}
+.btn-primary:hover{
+  background-color: #1a787a;
+  border-color: #1a787a;
+}
+
+#answerRow{
+  margin-top: 10px;
+}
+
+#categoryRow{
+  align-items: center;
+  margin: 30px 0;
+}
+
+#categoryDropdown{
+  width: 33%;
+}
+
+#new-question{
+  background-color:#7d41b7;
+}

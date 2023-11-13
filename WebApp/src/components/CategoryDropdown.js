@@ -20,9 +20,9 @@ function CategoryDropdown( { setCategory } ) {
   };
 
   return (
-    <div>
-      <label>Select an category:</label>
-      <select className="form-select" aria-label="Default select example" onChange={handleDropdownChange}>
+    <div className="row row-cols-2 justify-content-center" id="categoryRow">
+      <label className="col-3">Select a category:</label>
+      <select className="form-select col-6" id="categoryDropdown" aria-label="Default select example" onChange={handleDropdownChange}>
         {categoryList.map((item) => (
           <option key={item} value={item}>
             {item}
