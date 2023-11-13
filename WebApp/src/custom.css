@@ -8,11 +8,22 @@ code {
 
 header {
   background-color: #7d41b7;
+  margin-bottom: 2%;
+}
+
+h1 {
+  margin: 20px;
 }
 
 .navbar-brand {
   color: #fff;
   text-shadow: 2px black;
+}
+
+.btn{
+  border-style: groove;
+  border-width: 1.5px;
+  min-width: fit-content;
 }
 
 .btn-primary {
@@ -30,17 +41,31 @@ header {
   border-color: #1a787a;
 }
 
+#question {
+  margin: 15px;
+}
+
+#answer{
+  margin: 10px;
+  max-width: 28%;
+}
+
 #answerRow{
-  margin-top: 10px;
 }
 
 #categoryRow{
   align-items: center;
-  margin: 30px 0;
+  margin: 20px 0;
 }
 
-#categoryDropdown{
-  width: 33%;
+#category-dropdown{
+  width: fit-content;
+  border-style: groove;
+  border-width: 1.5px;
+}
+
+#category-label{
+  width: fit-content;
 }
 
 #new-question{

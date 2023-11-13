@@ -7,12 +7,14 @@ function Question() {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState("General Knowledge");
+  const [subheader, setSubheader] = useState(<p></p>);
 
   useEffect(() => {
     populateQuestion();
-  }, [category]);
+  }, []);
 
   useEffect(() => {
+    setSubheader(<p>Let's test your smarts on {category.toLowerCase()}.</p>);
     let allAnswers = [];
     if (questionData && questionData.type !== 2) {
       allAnswers = [questionData.correctAnswer, ...questionData.incorrectAnswers];
@@ -42,24 +44,25 @@ function Question() {
   const handleAnswerClick = (answer) => {
     setSelectedAnswer(answer);
   };
-  
+
   const questionDisplay = (questionData) => {
     return (
       <div>
-          <p>{questionData.question}</p>
+          <p id="question">{questionData.question}</p>
       </div>
     );
   }
   
-  const answerDisplay = (questionData) => {    
+  const populateAnswers = (questionData) => {    
     const answerPairs = sectionArrays(answers, 2);
   
     return (
       <div>
         {answerPairs.map((row, rowIndex) => (
-          <div key={rowIndex} className="row row-cols-2 justify-content-evenly " id="answerRow">
+          <div key={rowIndex} className="row row-cols-2 justify-content-center" id="answerRow">
             {row.map((answer, index) => (
               <button
+                id="answer"
                 key={index}
                 type="button"
                 className={`btn col-4 ${selectedAnswer === answer ? (answer === questionData.correctAnswer ? 'btn-success' : 'btn-danger') : 'btn-primary'}`}
@@ -77,18 +80,18 @@ function Question() {
   const displayQuestion = loading
     ? <p><em>Loading...</em></p>
     : questionDisplay(questionData);  
-    
+  
   const displayAnswers = loading
     ? <p></p>
-    : answerDisplay(questionData);
+    : populateAnswers(questionData);
 
   const populateQuestion = async () => {
     setLoading(true);
     try {
       const response = await fetch("api/question?category=" + category);
       const data = await response.json();
-       setQuestionSet(data.results[0]);
-       setSelectedAnswer(null);
+      setQuestionSet(data.results[0]);
+      setSelectedAnswer(null);
     } catch (error) {
       console.error("Error fetching question:", error);
     } finally {
@@ -108,22 +111,20 @@ function Question() {
       onClick={handleButtonClick}>
         New Question
     </button>;
-  
-  
 
   return (
-      <div className="container-fluid text-center">
-        <h1 id="topHeader" >Trivia Time!</h1>
-        <p>Let's see how well you know your {category.toLowerCase()}.</p>
-        <h1>Question</h1>
-        {displayQuestion}
-        {displayAnswers}
-        <CategoryDropdown 
-          setCategory={setCategory}
-        />
-        {newQuestionButton}
-      </div>
-    );
+    <div className="container-fluid text-center">
+      <h1 id="topHeader" >Trivia Time!</h1>
+      {subheader}
+      <h1>Question</h1>
+      {displayQuestion}
+      {displayAnswers}
+      <CategoryDropdown 
+        setCategory={setCategory}
+      />
+      {newQuestionButton}
+    </div>
+  );
 }
 
 
