@@ -26,10 +26,20 @@ h1 {
   min-width: fit-content;
 }
 
+.btn:disabled{
+  opacity: 1;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #1f9a9c;
   border-color: #41b5b7;
+}
+
+.btn-primary:disabled {
+  color: #fff;
+  background-color: #0e7475;
+  border-color: #0e7475;
 }
 
 .btn-success{
@@ -50,9 +60,6 @@ h1 {
   max-width: 28%;
 }
 
-#answerRow{
-}
-
 #categoryRow{
   align-items: center;
   margin: 20px 0;
@@ -69,5 +76,5 @@ h1 {
 }
 
 #new-question{
-  background-color:#7d41b7;
+  background-color:#090957;
 }

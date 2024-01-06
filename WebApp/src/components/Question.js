@@ -23,7 +23,7 @@ function Question() {
     else{
       setAnswers(["True", "False"])
     }
-  }, [questionData]);
+  }, [questionData, category]);
 
   const shuffleAnswers = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -41,10 +41,6 @@ function Question() {
     return sectionedArray;
   };
 
-  const handleAnswerClick = (answer) => {
-    setSelectedAnswer(answer);
-  };
-
   const questionDisplay = (questionData) => {
     return (
       <div>
@@ -52,6 +48,10 @@ function Question() {
       </div>
     );
   }
+
+  const handleAnswerClick = (answer) => {
+    setSelectedAnswer(answer);
+  };
   
   const populateAnswers = (questionData) => {    
     const answerPairs = sectionArrays(answers, 2);
@@ -65,8 +65,12 @@ function Question() {
                 id="answer"
                 key={index}
                 type="button"
-                className={`btn col-4 ${selectedAnswer === answer ? (answer === questionData.correctAnswer ? 'btn-success' : 'btn-danger') : 'btn-primary'}`}
+                className={`btn col-4 ${selectedAnswer !== null && 
+                  (selectedAnswer === answer || answer === questionData.correctAnswer) ? 
+                  (answer === questionData.correctAnswer ? 'btn-success' : 'btn-danger') : 
+                  'btn-primary'}`}
                 onClick={() => handleAnswerClick(answer)}
+                disabled={selectedAnswer !== null}
               >
                 {answer}
               </button>
