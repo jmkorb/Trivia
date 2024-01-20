@@ -1,8 +1,8 @@
 ﻿using System;
-using Library.Enums;
+using TriviaAPI.Library.Enums;
 
 
-namespace Library.Services
+namespace TriviaAPI.Library.Services
 {
 	public interface IQuestionService
 	{

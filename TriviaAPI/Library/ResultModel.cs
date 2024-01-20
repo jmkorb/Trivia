@@ -1,9 +1,9 @@
 ﻿using System;
-using Library.Enums;
+using TriviaAPI.Library.Enums;
 using System.Runtime.Serialization;
 using System.Xml.Linq;
 
-namespace Library
+namespace TriviaAPI.Library
 {
     [DataContract]
     public class ResultModel

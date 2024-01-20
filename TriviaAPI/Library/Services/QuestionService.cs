@@ -1,8 +1,8 @@
 ﻿using System.Net;
-using Library.Enums;
+using TriviaAPI.Library.Enums;
 using Newtonsoft.Json;
 
-namespace Library.Services
+namespace TriviaAPI.Library.Services
 {
 	public class QuestionService : IQuestionService
 	{

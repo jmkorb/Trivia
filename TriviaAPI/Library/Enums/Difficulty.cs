@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Library.Enums
+namespace TriviaAPI.Library.Enums
 {
 	public enum Difficulty
     {

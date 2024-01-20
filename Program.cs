@@ -1,4 +1,4 @@
-﻿using Library.Services;
+﻿using TriviaAPI.Library.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

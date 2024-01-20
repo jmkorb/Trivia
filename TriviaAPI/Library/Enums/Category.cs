@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace Library.Enums
+namespace TriviaAPI.Library.Enums
 {
     public enum Category
     {

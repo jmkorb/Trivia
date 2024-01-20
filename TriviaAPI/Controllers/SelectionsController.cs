@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Library.Enums;
+using TriviaAPI.Library.Enums;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Trivia.Controllers;
+namespace Trivia.TriviaAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

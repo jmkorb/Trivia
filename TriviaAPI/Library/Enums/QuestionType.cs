@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Library.Enums
+namespace TriviaAPI.Library.Enums
 {
     public enum QuestionType
     {
